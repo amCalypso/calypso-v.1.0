@@ -1,0 +1,70 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-4.0.xsd
+        http://www.springframework.org/schema/cache
+        http://www.springframework.org/schema/cache/spring-cache-4.0.xsd">
+        
+        
+        <!--  this context is for dev enviornment. -->
+
+	<!-- Scans the classpath for annotated components that will be auto-registered 
+		as Spring beans. All packages are place holders -->
+	<!-- <import resource="kafka-inbound-context.xml" /> 
+	<import resource="kafka-outbound-context.xml" />-->
+	<!-- database.xml -->
+	
+	
+	<!-- Following is the data source configured in tomcat. this will have Connection 
+		pooling mechanism. must for production and lower environments -->
+	<!-- <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> 
+		<property name="jndiName" value="java:comp/env/jdbc/mlds"/> </bean> -->
+
+	
+	
+	
+
+	<!-- end of Data source and JPA -->
+
+<!--  Util classes as singleton  -->
+
+
+
+<!--  Rest client start -->
+
+
+    <bean id="httpClientBuilder" class="org.apache.http.impl.client.HttpClientBuilder">
+    	<property name="maxConnTotal" value="50"/>
+       	<property name="maxConnPerRoute" value="50"/>
+    </bean>
+ 
+    <bean id="httpClientRequestFactory" class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory">
+        <property name="connectTimeout" value="20000"/>
+        <property name="readTimeout" value="20000"/>
+        <property name="httpClient">
+            <bean factory-bean="httpClientBuilder" factory-method="build"/>
+        </property>
+    </bean>
+	
+	
+      <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+        <constructor-arg ref="httpClientRequestFactory" />
+      </bean>
+	
+	  <bean id="httpHeaders" class="org.springframework.http.HttpHeaders">
+            <property name="contentType" value="application/json"/>
+      </bean>
+    
+      
+<!--  end of rest client -->
+
+
+</beans>
