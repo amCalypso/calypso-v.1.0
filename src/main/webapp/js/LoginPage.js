@@ -10,9 +10,9 @@ app.controller("login",function($scope,LoginService,$routeParams){
 		angular.element("#username").focus();
 		var promise = LoginService.validateLogin($scope.username,$scope.password,schoolId);
 		promise.then(function(result) {
-			if(result.status == "success") {
+			if(result.body.status == "success") {
 				$scope.authenticationSuccess = true;
-			} else if(result.status == "failure") {
+			} else if(result.body.status == "failure") {
 				$scope.authenticationFailure = true;
 			}
 		});

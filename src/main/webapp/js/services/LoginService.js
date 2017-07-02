@@ -10,7 +10,7 @@ app.service("LoginService", function($http,$q) {
 		tempData.password = password;
 		tempData.schoolId = schoolId;
 		var prop = {
-				url : protocol + "://" +hostname + ":" + port + "/calypso/authenticate",
+				url : protocol + "://" +hostname + ":" + port + "/" + project + "/" + mainRoute + "/authenticate",
 				method : "POST",
 				data : tempData
 		}

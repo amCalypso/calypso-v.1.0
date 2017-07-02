@@ -48,6 +48,9 @@
 					<li><a href="#clients" class="scroll">Gymnasts</a></li>
 					<li><a href="#testimonial" class="scroll">Testimonial</a></li>
 					<li><a href="#contact" class="scroll">Contact</a></li>
+					<li><a href="#clients" class="scroll">Gymnasts</a></li>
+					<li><a href="#testimonial" class="scroll">Testimonial</a></li>
+					<li><a href="#contact" class="scroll">Contact</a></li>
 				</ul>
 		  </div><!-- End Navigation Menu -->
 		</div><!-- End Navigation Inner -->
@@ -107,7 +110,7 @@
 	</section><!-- End Fun Acts Section -->
     
     <!-- About -->
-	<section id="newAdmission" class="container waypoint">
+	<section id="newAdmission" class="container waypoint" ng-controller="adminNewRegistration">
 	
 	<div style="    width: 100%;
     height: auto;
@@ -122,22 +125,52 @@
 				<form id="contact-us" method="post" action="#">
 					<!-- Left Inputs -->
 					<div class="col-xs-6 animated" data-animation="fadeInLeft" data-animation-delay="300">
-						<!-- Name -->
-						<input type="text" name="firstName" id="firstName" required="required" style="opacity:0.6" class="form" placeholder="First Name" />
-						<!-- Email -->
-						<input type="text" name="middleName" id="middleName" required="required" style="opacity:0.6" class="form" placeholder="Middle Name" />
-						<!-- Subject -->
-						<input type="text" name="lastName" id="lastName" required="required" style="opacity:0.6" class="form" placeholder="Last Name" />
-						<!-- Name -->
-						<input type="radio" name="name" id="name" required="required" style="opacity:0.6" class="form" placeholder="Name" />
-						<!-- Subject -->
-						<input type="text" name="subject" id="subject" required="required" style="opacity:0.6" class="form" placeholder="Subject" />
-						<!-- Name -->
-						<input type="text" name="name" id="name" required="required" style="opacity:0.6" class="form" placeholder="Name" />
-						<!-- Email -->
-						<input type="email" name="mail" id="mail" required="required" style="opacity:0.6" class="form" placeholder="Email" />
-						<!-- Subject -->
-						<input type="text" name="subject" id="subject" required="required" style="opacity:0.6" class="form" placeholder="Subject" />
+					
+					<div class="form-group" style="opacity:0.6">
+			            <label class="sr-only">First Name</label>
+			            <input ng-model="student.firstName" type="text" style="font-weight:500" placeholder="First Name" class="form-username form-control">
+			        </div>
+			        <div class="form-group" style="opacity:0.6">
+			            <label class="sr-only">Middle Name</label>
+			            <input ng-model="student.middleName" type="text" style="font-weight:500" placeholder="Middle Name." class="form-username form-control">
+			        </div>
+			        <div class="form-group" style="opacity:0.6; font-weight:500;">
+			            <label class="sr-only">Last Name</label>
+			            <input ng-model="student.lastName" type="text" style="font-weight:500" placeholder="Last Name..." class="form-username form-control">
+			        </div>
+			        <div class="form-group" style="opacity:0.6; font-weight:500;">
+			            <label class="sr-only">Date of Birth (DD/MM/YYYY)</label>
+			            <input ng-model="student.dateOfBirth" type="text" style="font-weight:500" name="form-username" placeholder="Date of Birth (DD/MM/YYYY)" class="form-username form-control">
+			        </div>
+			        <div class="form-group" style="font-weight:500; color:white; text-align:left">
+			            Male :
+			            <input  style="opacity:0.6;" ng-model="student.male" type="checkbox" ng-click="maleClicked(student.male)">
+			            Female : 
+			            <input  style="opacity:0.6;" ng-model="student.female" type="checkbox" ng-click="femaleClicked(student.female)">
+			        </div>
+			        <div class="form-group" style="opacity:0.6; font-weight:500;">
+			            <label class="sr-only">Father's Name</label>
+			            <input ng-model="student.fatherName" type="text" style="font-weight:500" placeholder="Father's Name" class="form-username form-control">
+			        </div>
+			        <div class="form-group" style="opacity:0.6; font-weight:500;">
+			            <label class="sr-only">Mother's Name</label>
+			            <input ng-model="student.motherName" type="text" style="font-weight:500" placeholder="Mother's Name" class="form-username form-control">
+			        </div>
+			        <div class="form-group" style="opacity:0.6; font-weight:500;">
+			            <label class="sr-only">Phone Number</label>
+			            <input ng-model="student.phoneNumber" type="text" style="font-weight:500" placeholder="Phone Number" class="form-username form-control">
+			        </div>
+			        <div class="form-group" style="opacity:0.6; font-weight:500;">
+			            <label class="sr-only">Alternate Phone Number</label>
+			            <input ng-model="student.alternatePhoneNumber" type="text" style="font-weight:500" placeholder="Alternate Phone Number" class="form-username form-control">
+			        </div>
+			        <div class="form-group" style="opacity:0.6; font-weight:500;">
+			            <label class="sr-only">Email ID</label>
+			            <input ng-model="student.emailID" type="text" style="font-weight:500" placeholder="Email ID" class="form-username form-control">
+			        </div>
+			        
+			        
+			                    
 						
 					</div><!-- End Left Inputs -->
 					<!-- Right Inputs -->
@@ -145,24 +178,36 @@
 						<!-- Message -->
 						<!-- <textarea name="message" id="message" class="form textarea"  placeholder="Message"></textarea> -->
 						<!-- Name -->
-						<input type="text" name="name" id="name" required="required" style="opacity:0.6" class="form" placeholder="Name" />
-						<!-- Email -->
-						<input type="email" name="mail" id="mail" required="required" style="opacity:0.6" class="form" placeholder="Email" />
-						<!-- Subject -->
-						<input type="text" name="subject" id="subject" required="required" style="opacity:0.6" class="form" placeholder="Subject" />
-						<!-- Name -->
-						<input type="text" name="name" id="name" required="required" style="opacity:0.6" class="form" placeholder="Name" />
-						<!-- Subject -->
-						<input type="text" name="subject" id="subject" required="required" style="opacity:0.6" class="form" placeholder="Subject" />
-						<!-- Subject -->
-						<input type="text" name="subject" id="subject" required="required" style="opacity:0.6" class="form" placeholder="Subject" />
-						<!-- Address -->
-						<textarea name="address" id="address" class="form textarea"  style="opacity:0.6" placeholder="Address"></textarea>
+					<div class="form-group" style="opacity:0.6; font-weight:500;">
+			            <label class="sr-only">Date of Joining (DD/MM/YYYY)</label>
+			            <input ng-model="student.dateOfJoining" type="text" style="font-weight:500" placeholder="Date of Joining (DD/MM/YYYY)" class="form-username form-control">
+			        </div>
+			        <div class="form-group" style="opacity:0.6; font-weight:500;">
+			            <label class="sr-only">Blood Group</label>
+			            <input ng-model="student.bloodGroup" type="text" style="font-weight:500" placeholder="Blood Group" class="form-username form-control">
+			        </div>
+			         <div class="form-group" style="opacity:0.6; font-weight:500;">
+			            <label class="sr-only">Roll Number</label>
+			            <input ng-model="student.rollNumber" type="text" style="font-weight:500" placeholder="Roll Number (Student ID)" class="form-username form-control">
+			        </div>
+			        <div class="form-group" style="font-weight:500; text-align:left; color:white">
+			            <label class="sr-only"></label>
+			            Class :
+			            <select ng-model="student.class" ng-options="eachClass.id as eachClass.label for eachClass in classes" style="color:black; opacity:0.6;width:100%;"></select>
+			        </div>
+			        <div class="form-group" style="font-weight:500; text-align:left; color:white">
+			            <label class="sr-only"></label>
+			            Section :
+			            <select ng-model="student.section" ng-options="eachSection.id as eachSection.label for eachSection in sections" style="color:black; opacity:0.6;width:100%;"></select>
+			        </div>
+			       
+						<textarea ng-model="student.address" name="address" id="address" class="form textarea"  style="opacity:0.6" placeholder="Address"></textarea>
+						<textarea ng-model="student.knownHealthIssues" name="address" id="address" class="form textarea"  style="height: 134px;max-height: 134px;opacity:0.6;" placeholder="Any Known Health Issues"></textarea>
 					</div><!-- End Right Inputs -->
 					<!-- Bottom Submit -->
 					<div class="relative fullwidth col-xs-12">
 						<!-- Send Button -->
-						<button type="submit" id="submit" name="submit" class="form-btn semibold">Send Message</button> 
+						<button id="Save" name="Save" class="form-btn semibold" ng-click="saveStudentObject(student)">Save</button> 
 					</div><!-- End Bottom Submit -->
 					<!-- Clear -->
 					<div class="clear"></div>
@@ -667,7 +712,7 @@
 	<!-- JS Files -->
 	
 	
-	<script type="text/javascript" src="3rd_Party/jQuery/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/jquery.appear.js"></script>
 	<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
