@@ -87,8 +87,8 @@
 						    <li ng-repeat="metaDataClasses in metaDataClasses"><a>{{metaDataClasses}}</a></li>
 						  </ul>
 						</div>
-			        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" style="opacity:0.6; width:30%; height: 32px;" placeholder="Add Class (1st, 2nd etc)"/>
-			        	&nbsp;&nbsp;&nbsp; <button class="btn" style="height:32px; line-height: 0px">Add Class</button>
+			        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" ng-model="newClass" style="opacity:0.6; width:30%; height: 32px;" placeholder="Add Class (1st, 2nd etc)"/>
+			        	&nbsp;&nbsp;&nbsp; <button class="btn" ng-click="addNewClassToMetaData(newClass)" style="height:32px; line-height: 0px">Add Class</button>
 						<!-- Single button -->
 						
 			        </div>
@@ -105,8 +105,8 @@
 						    <li ng-repeat="metaDataSections in metaDataSections"><a>{{metaDataClasses}}</a></li>
 						  </ul>
 						</div>
-			        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" style="opacity:0.6; width:30%; height: 32px;" placeholder="Add Section (A,B,C etc)"/>
-			        	&nbsp;&nbsp;&nbsp; <button class="btn" style="height:32px; line-height: 0px">Add Section</button>
+			        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" ng-model="newSection" style="opacity:0.6; width:30%; height: 32px;" placeholder="Add Section (A,B,C etc)"/>
+			        	&nbsp;&nbsp;&nbsp; <button class="btn" ng-click="addNewSectionToMetaData(newSection)" style="height:32px; line-height: 0px">Add Section</button>
 						<!-- Single button -->
 						
 			        </div>
@@ -123,8 +123,8 @@
 						    <li ng-repeat="metaDataSubjects in metaDataSubjects"><a>{{metaDataClasses}}</a></li>
 						  </ul>
 						</div>
-			        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" style="opacity:0.6; width:30%; height: 32px;" placeholder="Add Subjects (Maths,Science etc)"/>
-			        	&nbsp;&nbsp;&nbsp; <button class="btn" style="height:32px; line-height: 0px">Add Subject</button>
+			        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" ng-model="newSubject" style="opacity:0.6; width:30%; height: 32px;" placeholder="Add Subjects (Maths,Science etc)"/>
+			        	&nbsp;&nbsp;&nbsp; <button class="btn" ng-click="addNewSubjectToMetaData(newSubject)" style="height:32px; line-height: 0px">Add Subject</button>
 						<!-- Single button -->
 						
 			        </div>
