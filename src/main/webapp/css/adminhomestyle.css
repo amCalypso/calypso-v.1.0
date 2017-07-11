@@ -340,11 +340,10 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		font-size: 55px !important;
 	}
 
-	#home{
-		position: relative;
-		width: 100%;
-		height: auto;
-		top:0;
+	#metaData{
+		background: url(../images/HomePageBackground.jpg) fixed;
+		padding: 10px 0 10px;
+		background-size: cover;
 	}
 
 	.home{

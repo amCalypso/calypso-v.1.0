@@ -42,7 +42,7 @@
 			<!-- Navigation Menu -->
 		    <div class="nav-menu">
 				<ul class="nav uppercase">
-					<li><a href="#home" class="scroll">Home</a></li>       
+					<li><a href="#metaData" class="scroll">Meta Data</a></li>       
 					<li><a href="#newAdmission" class="scroll">New Admission</a></li>
 					<li><a href="#features" class="scroll">Features</a></li>     
 					<li><a href="#clients" class="scroll">Gymnasts</a></li>
@@ -57,56 +57,92 @@
 	</section><!-- End Navigation Section -->
 
 
-	<!-- Home Section -->
-	<section id="home" class="relative"> 	
-		 <div id="slides">
-			<div class="slides-container relative">
-				<!-- Slider Images -->
-				<div class="image2"></div>
-                <div class="image1"></div>
-				<div class="image3"></div>
-                <div class="image4"></div>
-				 <!-- End Slider Images -->	 
-			</div>
-			<!-- Slider Controls -->
-			<nav class="slides-navigation">
-			  <a href="#" class="next"></a>
-			  <a href="#" class="prev"></a>
-			</nav>
-		</div><!-- End Home Slides -->
-		<div class="v2 absolute">
-			<!-- Auto Typocraphic Texts -->
-			<div class="typographic">
-            	<!-- Your Logo -->
-				<div class="logo">
-					<img src="images/logo-icon.png" width="200" alt="Logo" />
-				</div>
-				<h2 class=" condensed uppercase no-padding no-margin bold gray1">Introducing</h2>
-				<h2 class=" condensed uppercase no-padding no-margin bold colored">Fitness Passion</h2>
-				<a href="#about" class="scroll"><i class="arrow-down fa fa-3x fa-angle-double-down"></i></a>
-			</div><!--End Auto Typocraphic Texts -->
-		</div><!-- End V2 area -->
-	</section><!-- End Home Section -->
-
-    
-	<!-- Fun Acts -->
-	<section id="fun-acts" class="container">
-
-		<div class="inner fun-acts">
-        <div class="about-margin"></div>
-        <a class="about-icon">
-			<i class="fa fa-life-ring"></i>
-		</a>
-        <br />        
-
-			<!-- Header -->
-			<h1 class="header light gray1 animated" data-animation="fadeInLeft" data-animation-delay="400">
-			 Winners Train,<span class="colored" data-animation="fadeInRight">Losers Complain</span></h1>
-			<!-- Description -->
-			<p class="h-desc"><span class="colored">lorem Ipsum is lorem Ipsum</span> lorem Ipsum is simply dummy text of the printing and typesetting industry loremipsum. lorem Ipsum is simply dummy text of the printing and typesetting industry loremipsum is simple.</p>
-
-		</div><!-- End Fun Acts Inner -->
-
+	<!-- MetaData Section -->
+	<section id="metaData" class="container waypoint" style="padding-top:10%; height:100%" ng-controller="adminMetaData"> 	
+		 
+		
+		
+		
+		
+		
+		<div style="    width: 100%;
+    height: auto;
+    max-width: 1170px;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;">
+	<h4 class="header light  fancy"><span class="colored">Available Classes, Sections and Subjects</span></h4>
+                <!-- <p class="h-desc white">lorem Ipsum is lorem Ipsum of passages of Lorem Ipsum available, but the majority have suffered alteration.<br />
+                Email us or give us a call at <span class="bold colored">+1 (800) 245-123.</span></p> -->
+	
+			        <div class="form-group" style="font-weight:500; text-align:left; color:white">
+			            <label class="sr-only"></label>
+			            Classes :
+			            <br/><!--  <select ng-model="temp" ng-options="metaDataClasses for metaDataClasses in metaDataClasses" style="color:black; opacity:0.6;width:50%;"></select>-->
+			            <div class="btn-group" >
+						  <button type="button" ng-click="populateMetaData()" class="btn btn-default dropdown-toggle" style="height: 32px;line-height: 0px;background-color: bisque;opacity: 0.6;color: black;padding: 0px 200px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    Available Classes <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" style="width: 534px;text-align: center;">
+						    <li ng-repeat="metaDataClasses in metaDataClasses"><a>{{metaDataClasses}}</a></li>
+						  </ul>
+						</div>
+			        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" style="opacity:0.6; width:30%; height: 32px;" placeholder="Add Class (1st, 2nd etc)"/>
+			        	&nbsp;&nbsp;&nbsp; <button class="btn" style="height:32px; line-height: 0px">Add Class</button>
+						<!-- Single button -->
+						
+			        </div>
+			        
+			        <div class="form-group" style="font-weight:500; text-align:left; color:white">
+			            <label class="sr-only"></label>
+			            Sections :
+			            <br/><!--  <select ng-model="temp" ng-options="metaDataClasses for metaDataClasses in metaDataClasses" style="color:black; opacity:0.6;width:50%;"></select>-->
+			            <div class="btn-group" >
+						  <button type="button" ng-click="populateMetaData()" class="btn btn-default dropdown-toggle" style="height: 32px;line-height: 0px;background-color: bisque;opacity: 0.6;color: black;padding: 0px 197px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    Available Sections <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" style="width: 534px;text-align: center;">
+						    <li ng-repeat="metaDataSections in metaDataSections"><a>{{metaDataClasses}}</a></li>
+						  </ul>
+						</div>
+			        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" style="opacity:0.6; width:30%; height: 32px;" placeholder="Add Section (A,B,C etc)"/>
+			        	&nbsp;&nbsp;&nbsp; <button class="btn" style="height:32px; line-height: 0px">Add Section</button>
+						<!-- Single button -->
+						
+			        </div>
+			        
+			        <div class="form-group" style="font-weight:500; text-align:left; color:white">
+			            <label class="sr-only"></label>
+			            Subjects :
+			            <br/><!--  <select ng-model="temp" ng-options="metaDataClasses for metaDataClasses in metaDataClasses" style="color:black; opacity:0.6;width:50%;"></select>-->
+			            <div class="btn-group" >
+						  <button type="button" ng-click="populateMetaData()" class="btn btn-default dropdown-toggle" style="height: 32px;line-height: 0px;background-color: bisque;opacity: 0.6;color: black;padding: 0px 197px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    Available Subjects <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" style="width: 534px;text-align: center;">
+						    <li ng-repeat="metaDataSubjects in metaDataSubjects"><a>{{metaDataClasses}}</a></li>
+						  </ul>
+						</div>
+			        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" style="opacity:0.6; width:30%; height: 32px;" placeholder="Add Subjects (Maths,Science etc)"/>
+			        	&nbsp;&nbsp;&nbsp; <button class="btn" style="height:32px; line-height: 0px">Add Subject</button>
+						<!-- Single button -->
+						
+			        </div>
+			       
+					
+        
+			
+			
+		
+		</div><!-- End About Inner -->
+		
+		
+		
+		
+		
+		
+		
+		
 	</section><!-- End Fun Acts Section -->
     
     <!-- About -->
@@ -698,7 +734,7 @@
 				<!-- Phone Number, Mail -->
 				<p>Phone: +1 (800) 245-1234 Email : <a href="mailto:info@Fitness.com" class="colored">info@Fitness.com</a> Address: 23 Renesa, Surma Beach, Newyork</p>
 				<!-- Top Button -->
-				<a href="#home" class="scroll top-button">
+				<a href="#metaData" class="scroll top-button">
 					<i class="fa fa-arrow-circle-up fa-2x"></i>
 				</a>
 			</div><!-- End Adress, Mail -->
@@ -726,6 +762,7 @@
 	<script type="text/javascript" src="js/jquery.fitvids.js"></script>
 	<script type="text/javascript" src="js/jquery.slabtext.js"></script>
 	<script type="text/javascript" src="js/plugins.js"></script>
+	<script type="text/javascript" src="3rd_Party/bootstrap/js/dropdown.js"></script>
 
 	<script>
 
