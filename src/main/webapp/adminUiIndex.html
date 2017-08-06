@@ -25,6 +25,7 @@
 
 	<!-- End CSS Files -->
  
+ 
 </head>
 
 <body>
@@ -45,7 +46,7 @@
 					<li><a href="#metaData" class="scroll">Meta Data</a></li>       
 					<li><a href="#newAdmission" class="scroll">New Admission</a></li>
 					<li><a href="#features" class="scroll">Features</a></li>     
-					<li><a href="#clients" class="scroll">Gymnasts</a></li>
+					<li><a href="#markSheet" class="scroll">Marks Sheet</a></li>
 					<li><a href="#testimonial" class="scroll">Testimonial</a></li>
 					<li><a href="#contact" class="scroll">Contact</a></li>
 					<li><a href="#clients" class="scroll">Gymnasts</a></li>
@@ -58,7 +59,7 @@
 
 
 	<!-- MetaData Section -->
-	<section id="metaData" class="container waypoint" style="padding-top:10%; height:100%" ng-controller="adminMetaData"> 	
+	<section id="metaData" class="container waypoint" style="padding-top:6%; height:100vh" ng-controller="adminMetaData"> 	
 		 
 		
 		
@@ -75,6 +76,55 @@
                 <!-- <p class="h-desc white">lorem Ipsum is lorem Ipsum of passages of Lorem Ipsum available, but the majority have suffered alteration.<br />
                 Email us or give us a call at <span class="bold colored">+1 (800) 245-123.</span></p> -->
 	
+					<div class="form-group" style="font-weight:500; color:white; text-align:left">
+			        Student Evaluation Type?
+			        &nbsp;&nbsp;&nbsp;
+			        
+			            Marks :
+			            <input  style="opacity:0.6;" ng-model="marksBased" type="checkbox" ng-click="marksClicked(marksBased)">
+			            &nbsp;&nbsp;&nbsp;
+			            Grade : 
+			            <input  style="opacity:0.6;" ng-model="gradeBased" type="checkbox" ng-click="gradeClicked(gradeBased)">
+			        </div>
+			        
+			        <div ng-show="gradeBased" class="form-group" style="font-weight:500; text-align:left; color:white">
+			            <label class="sr-only"></label>
+			            Grades :
+			            <br/><!--  <select ng-model="temp" ng-options="metaDataClasses for metaDataClasses in metaDataClasses" style="color:black; opacity:0.6;width:50%;"></select>-->
+			            <div class="btn-group" >
+						  <button type="button" ng-click="populateMetaData()" class="btn btn-default dropdown-toggle" style="height: 32px;line-height: 0px;background-color: bisque;opacity: 0.6;color: black;padding: 0px 202px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    Available Grades <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" style="width: 534px;text-align: center; max-height: 70vh; overflow: scroll">
+						    <li ng-repeat="metaDataGrades in metaDataGrades"><a>{{metaDataGrades}}</a></li>
+						  </ul>
+						</div>
+			        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" ng-model="newGrade" style="opacity:0.6; width:30%; height: 32px;" placeholder="Add Grade (A, A+, B, D etc)"/>
+			        	&nbsp;&nbsp;&nbsp; <button class="btn" ng-click="addNewGradeToMetaData(newGrade)" style="height:32px; line-height: 0px; padding: 0 34px;">Add Grade</button>
+						<!-- Single button -->
+						
+			        </div>
+			       
+			       	<div ng-show="gradeBased" class="form-group scroll" style="font-weight:500; text-align:left; color:white">
+			            <label class="sr-only"></label>
+			            Select Passing Grades :
+			            <div		ng-click="populateMetaData(); savePassingGrades(passingGrades);"
+								    isteven-multi-select
+								    input-model="grades"
+								    output-model="passingGrades"
+								    button-label="name"
+								    item-label="name"
+								    tick-property="ticked"
+								    orientation="horizontal"
+								>
+								</div>
+						
+			        </div> 
+	
+	
+	
+	
+	
 			        <div class="form-group" style="font-weight:500; text-align:left; color:white">
 			            <label class="sr-only"></label>
 			            Classes :
@@ -83,12 +133,12 @@
 						  <button type="button" ng-click="populateMetaData()" class="btn btn-default dropdown-toggle" style="height: 32px;line-height: 0px;background-color: bisque;opacity: 0.6;color: black;padding: 0px 200px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						    Available Classes <span class="caret"></span>
 						  </button>
-						  <ul class="dropdown-menu" style="width: 534px;text-align: center;">
+						  <ul class="dropdown-menu" style="width: 534px;text-align: center; max-height: 55vh; overflow: scroll">
 						    <li ng-repeat="metaDataClasses in metaDataClasses"><a>{{metaDataClasses}}</a></li>
 						  </ul>
 						</div>
 			        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" ng-model="newClass" style="opacity:0.6; width:30%; height: 32px;" placeholder="Add Class (1st, 2nd etc)"/>
-			        	&nbsp;&nbsp;&nbsp; <button class="btn" ng-click="addNewClassToMetaData(newClass)" style="height:32px; line-height: 0px">Add Class</button>
+			        	&nbsp;&nbsp;&nbsp; <button class="btn" ng-click="addNewClassToMetaData(newClass)" style="height:32px; line-height: 0px; padding: 0 37px;">Add Class</button>
 						<!-- Single button -->
 						
 			        </div>
@@ -101,12 +151,12 @@
 						  <button type="button" ng-click="populateMetaData()" class="btn btn-default dropdown-toggle" style="height: 32px;line-height: 0px;background-color: bisque;opacity: 0.6;color: black;padding: 0px 197px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						    Available Sections <span class="caret"></span>
 						  </button>
-						  <ul class="dropdown-menu" style="width: 534px;text-align: center;">
-						    <li ng-repeat="metaDataSections in metaDataSections"><a>{{metaDataClasses}}</a></li>
+						  <ul class="dropdown-menu" style="width: 534px;text-align: center; max-height: 45vh; overflow: scroll">
+						    <li ng-repeat="metaDataSections in metaDataSections"><a>{{metaDataSections}}</a></li>
 						  </ul>
 						</div>
 			        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" ng-model="newSection" style="opacity:0.6; width:30%; height: 32px;" placeholder="Add Section (A,B,C etc)"/>
-			        	&nbsp;&nbsp;&nbsp; <button class="btn" ng-click="addNewSectionToMetaData(newSection)" style="height:32px; line-height: 0px">Add Section</button>
+			        	&nbsp;&nbsp;&nbsp; <button class="btn" ng-click="addNewSectionToMetaData(newSection)" style="height:32px; line-height: 0px; padding: 0 31px;">Add Section</button>
 						<!-- Single button -->
 						
 			        </div>
@@ -119,21 +169,39 @@
 						  <button type="button" ng-click="populateMetaData()" class="btn btn-default dropdown-toggle" style="height: 32px;line-height: 0px;background-color: bisque;opacity: 0.6;color: black;padding: 0px 197px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						    Available Subjects <span class="caret"></span>
 						  </button>
-						  <ul class="dropdown-menu" style="width: 534px;text-align: center;">
-						    <li ng-repeat="metaDataSubjects in metaDataSubjects"><a>{{metaDataClasses}}</a></li>
+						  <ul class="dropdown-menu" style="width: 534px;text-align: center; max-height: 38vh; overflow: scroll">
+						    <li ng-repeat="metaDataSubjects in metaDataSubjects"><a>{{metaDataSubjects}}</a></li>
 						  </ul>
 						</div>
 			        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" ng-model="newSubject" style="opacity:0.6; width:30%; height: 32px;" placeholder="Add Subjects (Maths,Science etc)"/>
-			        	&nbsp;&nbsp;&nbsp; <button class="btn" ng-click="addNewSubjectToMetaData(newSubject)" style="height:32px; line-height: 0px">Add Subject</button>
+			        	&nbsp;&nbsp;&nbsp; <button class="btn" ng-click="addNewSubjectToMetaData(newSubject)" style="height:32px; line-height: 0px; padding: 0 31px;">Add Subject</button>
 						<!-- Single button -->
 						
 			        </div>
-			       
-					
-        
-			
-			
+			        
+			        <div class="form-group" style="font-weight:500; text-align:left; color:white">
+			            <label class="sr-only"></label>
+			            Tests Or Exams :
+			            <br/><!--  <select ng-model="temp" ng-options="metaDataClasses for metaDataClasses in metaDataClasses" style="color:black; opacity:0.6;width:50%;"></select>-->
+			            <div class="btn-group" >
+						  <button type="button" ng-click="populateMetaData()" class="btn btn-default dropdown-toggle" style="height: 32px;line-height: 0px;background-color: bisque;opacity: 0.6;color: black;padding: 0px 181px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    Available Tests/Exams <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" style="width: 534px;text-align: center; max-height: 30vh; overflow: scroll">
+						    <li ng-repeat="metaDataTestOrExams in metaDataTestOrExams"><a>{{metaDataTestOrExams}}</a></li>
+						  </ul>
+						</div>
+			        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" ng-model="newTestOrExam" style="opacity:0.6; width:30%; height: 32px;" placeholder="Add Test/Exam (Test1,Mid-term Exam etc)"/>
+			        	&nbsp;&nbsp;&nbsp; <button class="btn" ng-click="addNewTestOrExamToMetaData(testOrExam)" style="height:32px; line-height: 0px;">Add Test/Exam</button>
+						<!-- Single button -->
+						
+			        </div>
+			        
+			        
+			        		
 		
+		
+					
 		</div><!-- End About Inner -->
 		
 		
@@ -146,7 +214,7 @@
 	</section><!-- End Fun Acts Section -->
     
     <!-- About -->
-	<section id="newAdmission" class="container waypoint" ng-controller="adminNewRegistration">
+	<section id="newAdmission" style="height:100vh" class="container waypoint" ng-controller="adminNewRegistration">
 	
 	<div style="    width: 100%;
     height: auto;
@@ -164,19 +232,19 @@
 					
 					<div class="form-group" style="opacity:0.6">
 			            <label class="sr-only">First Name</label>
-			            <input ng-model="student.firstName" type="text" style="font-weight:500" placeholder="First Name" class="form-username form-control">
+			            <input ng-model="student.firstName" type="text" style="font-weight:500; height:4.95vh" placeholder="First Name" class="form-username form-control">
 			        </div>
 			        <div class="form-group" style="opacity:0.6">
 			            <label class="sr-only">Middle Name</label>
-			            <input ng-model="student.middleName" type="text" style="font-weight:500" placeholder="Middle Name." class="form-username form-control">
+			            <input ng-model="student.middleName" type="text" style="font-weight:500; height:4.95vh" placeholder="Middle Name." class="form-username form-control">
 			        </div>
 			        <div class="form-group" style="opacity:0.6; font-weight:500;">
 			            <label class="sr-only">Last Name</label>
-			            <input ng-model="student.lastName" type="text" style="font-weight:500" placeholder="Last Name..." class="form-username form-control">
+			            <input ng-model="student.lastName" type="text" style="font-weight:500; height:4.95vh" placeholder="Last Name..." class="form-username form-control">
 			        </div>
 			        <div class="form-group" style="opacity:0.6; font-weight:500;">
 			            <label class="sr-only">Date of Birth (DD/MM/YYYY)</label>
-			            <input ng-model="student.dateOfBirth" type="text" style="font-weight:500" name="form-username" placeholder="Date of Birth (DD/MM/YYYY)" class="form-username form-control">
+			            <input ng-model="student.dateOfBirth" type="text" style="font-weight:500; height:4.95vh" name="form-username" placeholder="Date of Birth (DD/MM/YYYY)" class="form-username form-control">
 			        </div>
 			        <div class="form-group" style="font-weight:500; color:white; text-align:left">
 			            Male :
@@ -186,23 +254,23 @@
 			        </div>
 			        <div class="form-group" style="opacity:0.6; font-weight:500;">
 			            <label class="sr-only">Father's Name</label>
-			            <input ng-model="student.fatherName" type="text" style="font-weight:500" placeholder="Father's Name" class="form-username form-control">
+			            <input ng-model="student.fatherName" type="text" style="font-weight:500; height:4.95vh" placeholder="Father's Name" class="form-username form-control">
 			        </div>
 			        <div class="form-group" style="opacity:0.6; font-weight:500;">
 			            <label class="sr-only">Mother's Name</label>
-			            <input ng-model="student.motherName" type="text" style="font-weight:500" placeholder="Mother's Name" class="form-username form-control">
+			            <input ng-model="student.motherName" type="text" style="font-weight:500; height:4.95vh" placeholder="Mother's Name" class="form-username form-control">
 			        </div>
 			        <div class="form-group" style="opacity:0.6; font-weight:500;">
 			            <label class="sr-only">Phone Number</label>
-			            <input ng-model="student.phoneNumber" type="text" style="font-weight:500" placeholder="Phone Number" class="form-username form-control">
+			            <input ng-model="student.phoneNumber" type="text" style="font-weight:500; height:4.95vh" placeholder="Phone Number" class="form-username form-control">
 			        </div>
 			        <div class="form-group" style="opacity:0.6; font-weight:500;">
 			            <label class="sr-only">Alternate Phone Number</label>
-			            <input ng-model="student.alternatePhoneNumber" type="text" style="font-weight:500" placeholder="Alternate Phone Number" class="form-username form-control">
+			            <input ng-model="student.alternatePhoneNumber" type="text" style="font-weight:500; height:4.95vh" placeholder="Alternate Phone Number" class="form-username form-control">
 			        </div>
 			        <div class="form-group" style="opacity:0.6; font-weight:500;">
 			            <label class="sr-only">Email ID</label>
-			            <input ng-model="student.emailID" type="text" style="font-weight:500" placeholder="Email ID" class="form-username form-control">
+			            <input ng-model="student.emailID" type="text" style="font-weight:500; height:4.95vh" placeholder="Email ID" class="form-username form-control">
 			        </div>
 			        
 			        
@@ -216,15 +284,15 @@
 						<!-- Name -->
 					<div class="form-group" style="opacity:0.6; font-weight:500;">
 			            <label class="sr-only">Date of Joining (DD/MM/YYYY)</label>
-			            <input ng-model="student.dateOfJoining" type="text" style="font-weight:500" placeholder="Date of Joining (DD/MM/YYYY)" class="form-username form-control">
+			            <input ng-model="student.dateOfJoining" type="text" style="font-weight:500; height:4.95vh" placeholder="Date of Joining (DD/MM/YYYY)" class="form-username form-control">
 			        </div>
 			        <div class="form-group" style="opacity:0.6; font-weight:500;">
 			            <label class="sr-only">Blood Group</label>
-			            <input ng-model="student.bloodGroup" type="text" style="font-weight:500" placeholder="Blood Group" class="form-username form-control">
+			            <input ng-model="student.bloodGroup" type="text" style="font-weight:500; height:4.95vh" placeholder="Blood Group" class="form-username form-control">
 			        </div>
 			         <div class="form-group" style="opacity:0.6; font-weight:500;">
 			            <label class="sr-only">Roll Number</label>
-			            <input ng-model="student.rollNumber" type="text" style="font-weight:500" placeholder="Roll Number (Student ID)" class="form-username form-control">
+			            <input ng-model="student.rollNumber" type="text" style="font-weight:500; height:4.95vh" placeholder="Roll Number (Student ID)" class="form-username form-control">
 			        </div>
 			        <div class="form-group" style="font-weight:500; text-align:left; color:white">
 			            <label class="sr-only"></label>
@@ -237,8 +305,8 @@
 			            <select ng-model="student.section" ng-options="eachSection.id as eachSection.label for eachSection in sections" style="color:black; opacity:0.6;width:100%;"></select>
 			        </div>
 			       
-						<textarea ng-model="student.address" name="address" id="address" class="form textarea"  style="opacity:0.6" placeholder="Address"></textarea>
-						<textarea ng-model="student.knownHealthIssues" name="address" id="address" class="form textarea"  style="height: 134px;max-height: 134px;opacity:0.6;" placeholder="Any Known Health Issues"></textarea>
+						<textarea ng-model="student.address" name="address" id="address" class="form textarea"  style="height: 12.2vh; opacity:0.6" placeholder="Address"></textarea>
+						<textarea ng-model="student.knownHealthIssues" name="address" id="address" class="form textarea"  style="height: 12.2vh;opacity:0.6;" placeholder="Any Known Health Issues"></textarea>
 					</div><!-- End Right Inputs -->
 					<!-- Bottom Submit -->
 					<div class="relative fullwidth col-xs-12">
@@ -249,33 +317,7 @@
 					<div class="clear"></div>
 				</form>
 				</div>
-		<div class="inner">        
-        
-			
-			
-			
-			<!-- Contact Inner -->
-		<div class="inner contact">
 
-			<!-- Form Area -->
-			<div class="contact-form">
-            
-            	
-				
-
-				<!-- Your Mail Message -->
-				<div class="mail-message-area">
-					<!-- Message -->
-					<div class="alert gray-bg mail-message not-visible-message">
-						<strong>Thank You !</strong> Your email has been delivered.
-					</div>
-				</div>
-
-			</div><!-- End Contact Form Area -->
-		</div><!-- End Inner -->
-		
-		
-		</div><!-- End About Inner -->
 	</section><!-- End About Section -->
 
 	<!-- Features -->
@@ -337,244 +379,76 @@
 	</section><!-- End Features Section -->
     
 	<!-- Clients -->
-	<section id="clients" class="container">
+	<section id="markSheet" class="container" style="height:100vh">
 
-		<!-- Team Inner -->
-		<div class="inner team">
-
-			<!-- Header -->
-			<h1 class="header light gray3 fancy"><span class="colored">Our </span> Gymnasts</h1>
-
-			<!-- Description -->
-			<p class="h-desc gray4">lorem Ipsum is<span class="colored bold">  lorem Ipsum</span> lorem Ipsum is simply dummy text of the printing and typesetting industry loremipsum. lorem Ipsum is simply dummy text of the printing and typesetting industry loremipsum is simple.</p>
-
-
-			<!-- Members -->
-			<div class="team-members inner-details">
-
-				<!-- Member -->
-				<div class="col-xs-4 member animated" data-animation="fadeInUp" data-animation-delay="0">
-					<div class="member-inner">
-						<!-- Team Member Image -->
-						<a class="team-image">
-							<!-- Img -->
-							<img src="images/clients/9.jpg" alt="" />
-						</a>
-						<div class="member-details">
-							<div class="member-details-inner">
-								<!-- Name -->
-								<h2 class="member-name light">Lorem ipsum dolor</h2>
-								<!-- Description -->
-								<p class="member-description">Lorem ipsum dolor sit amet consectetur adipiscing.</p>
-								<!-- Socials -->
-								<div class="socials">
-									<!-- Link -->
-									<a href="#"><i class="fa fa-link"></i></a>
-								</div><!-- End Socials -->
-							</div> <!-- End Detail Inner -->
-						</div><!-- End Details -->
-					</div> <!-- End Member Inner -->
-				</div><!-- End Member -->
-
-
-				<!-- Member -->
-				<div class="col-xs-4 member animated" data-animation="fadeInUp" data-animation-delay="100">
-					<div class="member-inner">
-						<!-- Team Member Image -->
-						<a class="team-image">
-							<!-- Img -->
-							<img src="images/clients/2.jpg" alt="" />
-						</a>
-						<div class="member-details">
-							<div class="member-details-inner">
-								<!-- Name -->
-								<h2 class="member-name light">Lorem ipsum dolor</h2>
-								<!-- Description -->
-								<p class="member-description">Lorem ipsum dolor sit amet consectetur adipiscing.</p>
-								<!-- Socials -->
-								<div class="socials">
-									<!-- Image -->
-									<a href="#"><i class="fa fa-camera"></i></a>
-								</div><!-- End Socials -->
-							</div> <!-- End Detail Inner -->
-						</div><!-- End Details -->
-					</div> <!-- End Member Inner -->
-				</div><!-- End Member -->
-
-
-				<!-- Member -->
-				<div class="col-xs-4 member animated" data-animation="fadeInUp" data-animation-delay="200">
-					<div class="member-inner">
-						<!-- Team Member Image -->
-						<a class="team-image">
-							<!-- Img -->
-							<img src="images/clients/3.jpg" alt="" />
-						</a>
-						<div class="member-details">
-							<div class="member-details-inner">
-								<!-- Name -->
-								<h2 class="member-name light">Lorem ipsum dolor</h2>
-								<!-- Description -->
-								<p class="member-description">Lorem ipsum dolor sit amet consectetur adipiscing.</p>
-								<!-- Socials -->
-								<div class="socials">
-									<!-- Link -->
-									<a href="#"><i class="fa fa-link"></i></a>
-								</div><!-- End Socials -->
-							</div> <!-- End Detail Inner -->
-						</div><!-- End Details -->
-					</div> <!-- End Member Inner -->
-				</div><!-- End Member -->
+		
+	<div >
+    
+		<div style="    width: 100%;
+    height: 100%;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;" ng-controller="markSheetController">
+				
+			            
+			            
+			            <div class="form-group" style="font-weight:500; text-align:center; color:white;">
+			            <label class="sr-only"></label>
+			            Year :
+			            <select ng-model="selectedYear" ng-click="populateMetaData()" ng-options="years for years in years" style="color:black; opacity:1;width:10%;"></select>
+			        	&nbsp;&nbsp;&nbsp; 
+			        
+			            <label class="sr-only"></label>
+			            Class :
+			            <select ng-model="selectedClass" ng-click="populateMetaData()" ng-options="metaDataClasses for metaDataClasses in metaDataClasses" style="color:black; opacity:1;width:10%;"></select>
+			        	&nbsp;&nbsp;&nbsp; 
+			        
+			            <label class="sr-only"></label>
+			            Section :
+			            <select ng-model="selectedSection" ng-click="populateMetaData()" ng-options="metaDataSections for metaDataSections in metaDataSections" style="color:black; opacity:1;width:10%;"></select>
+			        	&nbsp;&nbsp;&nbsp; 
+			        	
+			        	
+			        
+			        
+			        <label class="sr-only"></label>
+			            Test/Exam :
+			            <select ng-model="selectedTestOrExam" ng-click="populateMetaData()" ng-options="metaDataTestOrExams for metaDataTestOrExams in metaDataTestOrExams" style="color:black; opacity:1;width:10%;"></select>
+			        	&nbsp;&nbsp;&nbsp;<button class="btn" ng-click="getMarksData(selectedYear,selectedClass,selectedSection,selectedTestOrExam)" style="height:32px; line-height: 0px">Get Marks Sheet</button>
+			        	
+						
+			        </div>
+			  		        
+					<div ui-grid="marksData" ui-grid-edit ui-grid-cellNav ui-grid-resize-columns class="grid" style="height:70vh; max-width:100%;overflow-x:hidden; background-color:white"></div>
+	
+	
+						
+						<div class="form-group" style="font-weight:500; text-align:center; color:white; padding-top: 20px;">
+						<span style="float: left; margin-left:1vh">
+						Grade System:
+			            <input  style="opacity:0.6;" ng-model="gradeSystemFlag" type="checkbox">
+			            </span>
+			            &nbsp;&nbsp;&nbsp; 
+			            <label class="sr-only"></label>
+			            Add Subject Column :
+			            <select ng-model="selectedSubject" ng-click="populateMetaData()" ng-options="metaDataSubjects for metaDataSubjects in metaDataSubjects" style="color:black; opacity:1;width:20%;"></select>
+			        	&nbsp;&nbsp;&nbsp;
+			        	<span ng-show="!gradeSystemFlag">
+				        	&nbsp;&nbsp;<input type="text" ng-model="passingMarks" style="opacity:0.6; width:12%; height: 32px;" placeholder="Passing Marks"/>
+				        	&nbsp;&nbsp;<input type="text" ng-model="totalMarks" style="opacity:0.6; width:10%; height: 32px;" placeholder="Total Marks"/>
+				        </span>
+				        
+			        	&nbsp;&nbsp;<button class="btn" ng-click="addSubjectToColumn(selectedSubject,passingMarks,totalMarks)" style="height:32px; line-height: 0px">Add Subject</button>
+			        	&nbsp;&nbsp;
+			        	<button class="btn" ng-click="saveMarks(marksData)" style="height:32px; line-height: 0px; float: right; padding:0 60px; margin-right: 2vh; color">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;
+			        </div>
+			        
+			        
+	</div>
+		</div>
+					
 
 
-				<!-- Member -->
-				<div class="col-xs-4 member animated" data-animation="fadeInUp" data-animation-delay="300">
-					<div class="member-inner">
-						<!-- Team Member Image -->
-						<a class="team-image">
-							<!-- Img -->
-							<img src="images/clients/4.jpg" alt="" />
-						</a>
-						<div class="member-details">
-							<div class="member-details-inner">
-								<!-- Name -->
-								<h2 class="member-name light">Lorem ipsum dolor</h2>
-								<!-- Description -->
-								<p class="member-description">Lorem ipsum dolor sit amet consectetur adipiscing.</p>
-								<!-- Socials -->
-								<div class="socials">
-									<!-- Image -->
-									<a href="#"><i class="fa fa-camera"></i></a>
-								</div><!-- End Socials -->
-							</div> <!-- End Detail Inner -->
-						</div><!-- End Details -->
-					</div> <!-- End Member Inner -->
-				</div><!-- End Member -->
-
-
-				<!-- Member -->
-				<div class="col-xs-4 member animated" data-animation="fadeInUp" data-animation-delay="400">
-					<div class="member-inner">
-						<!-- Team Member Image -->
-						<a class="team-image">
-							<!-- Img -->
-							<img src="images/clients/5.jpg" alt="" />
-						</a>
-						<div class="member-details">
-							<div class="member-details-inner">
-								<!-- Name -->
-								<h2 class="member-name light">Lorem ipsum dolor</h2>
-								<!-- Description -->
-								<p class="member-description">Lorem ipsum dolor sit amet consectetur adipiscing.</p>
-								<!-- Socials -->
-								<div class="socials">
-									<!-- Link -->
-									<a href="#"><i class="fa fa-link"></i></a>
-								</div><!-- End Socials -->
-							</div> <!-- End Detail Inner -->
-						</div><!-- End Details -->
-					</div> <!-- End Member Inner -->
-				</div><!-- End Member -->
-                
-				<!-- Member -->
-				<div class="col-xs-4 member animated" data-animation="fadeInUp" data-animation-delay="0">
-					<div class="member-inner">
-						<!-- Team Member Image -->
-						<a class="team-image">
-							<!-- Img -->
-							<img src="images/clients/6.jpg" alt="" />
-						</a>
-						<div class="member-details">
-							<div class="member-details-inner">
-								<!-- Name -->
-								<h2 class="member-name light">Lorem ipsum dolor</h2>
-								<!-- Description -->
-								<p class="member-description">Lorem ipsum dolor sit amet consectetur adipiscing.</p>
-								<!-- Socials -->
-								<div class="socials">
-									<!-- Link -->
-									<a href="#"><i class="fa fa-link"></i></a>
-								</div><!-- End Socials -->
-							</div> <!-- End Detail Inner -->
-						</div><!-- End Details -->
-					</div> <!-- End Member Inner -->
-				</div><!-- End Member -->
-
-
-				<!-- Member -->
-				<div class="col-xs-4 member animated" data-animation="fadeInUp" data-animation-delay="100">
-					<div class="member-inner">
-						<!-- Team Member Image -->
-						<a class="team-image">
-							<!-- Img -->
-							<img src="images/clients/7.jpg" alt="" />
-						</a>
-						<div class="member-details">
-							<div class="member-details-inner">
-								<!-- Name -->
-								<h2 class="member-name light">Lorem ipsum dolor</h2>
-								<!-- Description -->
-								<p class="member-description">Lorem ipsum dolor sit amet consectetur adipiscing.</p>
-								<!-- Socials -->
-								<div class="socials">
-									<!-- Image -->
-									<a href="#"><i class="fa fa-camera"></i></a>
-								</div><!-- End Socials -->
-							</div> <!-- End Detail Inner -->
-						</div><!-- End Details -->
-					</div> <!-- End Member Inner -->
-				</div><!-- End Member -->
-
-
-				<!-- Member -->
-				<div class="col-xs-4 member animated" data-animation="fadeInUp" data-animation-delay="200">
-					<div class="member-inner">
-						<!-- Team Member Image -->
-						<a class="team-image">
-							<!-- Img -->
-							<img src="images/clients/8.jpg" alt="" />
-						</a>
-						<div class="member-details">
-							<div class="member-details-inner">
-								<!-- Name -->
-								<h2 class="member-name light">Lorem ipsum dolor</h2>
-								<!-- Description -->
-								<p class="member-description">Lorem ipsum dolor sit amet consectetur adipiscing.</p>
-								<!-- Socials -->
-								<div class="socials">
-									<!-- Link -->
-									<a href="#"><i class="fa fa-link"></i></a>
-								</div><!-- End Socials -->
-							</div> <!-- End Detail Inner -->
-						</div><!-- End Details -->
-					</div> <!-- End Member Inner -->
-				</div><!-- End Member -->                
-
-				<!-- Member -->
-				<div class="col-xs-4 member animated" data-animation="fadeInUp" data-animation-delay="500">
-					<div class="member-inner">
-						<!-- Team Member Image -->
-						<a class="team-image">
-							<!-- Img -->
-							<img src="images/clients/1.jpg" alt="" />
-						</a>
-						<div class="member-details">
-							<div class="member-details-inner">
-								<!-- Name -->
-								<h2 class="member-name light">Lorem ipsum dolor</h2>
-								<!-- Description -->
-								<p class="member-description">Lorem ipsum dolor sit amet consectetur adipiscing.</p>
-								<!-- Socials -->
-								<div class="socials">
-									<!-- Image -->
-									<a href="#"><i class="fa fa-camera"></i></a>
-								</div><!-- End Socials -->
-							</div> <!-- End Detail Inner -->
-						</div><!-- End Details -->
-					</div> <!-- End Member Inner -->
-				</div><!-- End Member -->
-			</div><!-- End Members -->
-		</div><!-- End Team Inner -->
 	</section><!-- End Team Section -->  
 
 

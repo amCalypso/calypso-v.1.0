@@ -1,4 +1,4 @@
-var app = angular.module('calypso',["ngRoute"]);
+var app = angular.module('calypso',['ngRoute','ngTouch', 'ui.grid', 'ui.grid.edit', 'ui.grid.cellNav', 'ui.grid.resizeColumns','isteven-multi-select']);
 
 app.config(function($routeProvider) {
 	$routeProvider
@@ -13,4 +13,6 @@ app.config(function($routeProvider) {
 		templateUrl : "adminUiIndex.html",
 		controller : "login"
 	})
-})
+});
+
+//window.onwheel = function(){ return false; }

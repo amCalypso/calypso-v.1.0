@@ -623,6 +623,13 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		background-size: cover;
 	}
 
+/* Marks Sheet */
+#markSheet {
+		background: url(../images/HomePageBackground.jpg) fixed;
+		padding: 10px 0 10px;
+		background-size: cover;
+		height: 100%;
+	}
 
 /* About */
    @media (min-width:600px) and (max-width:1020px){
@@ -1220,11 +1227,6 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		border:1px solid #8BC3A3;
 	}
 
-	.textarea{
-		height: 130px;
-		max-height: 130px;
-		max-width: 100%;
-	}
 	
 /* Generic Button Styles */
 

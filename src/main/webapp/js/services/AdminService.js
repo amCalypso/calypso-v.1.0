@@ -16,7 +16,7 @@ app.service("adminService", function($http,$q) {
 		return promise;
 	};
 	
-	this.getMetaDataClasses = function(schoolId) {
+	this.getMetaData = function(schoolId) {
 		var deferred = $q.defer();
 		var promise = deferred.promise;
 		var prop = {
@@ -29,7 +29,7 @@ app.service("adminService", function($http,$q) {
 		return promise;
 	};
 	
-	this.addNewClassToMetaData = function(Class) {
+	this.addNewClassToMetaData = function(schoolId,Class) {
 		var deferred = $q.defer();
 		var promise = deferred.promise;
 		var data = {newClass:Class};
@@ -44,7 +44,7 @@ app.service("adminService", function($http,$q) {
 		return promise;
 	};
 	
-	this.addNewSectionToMetaData = function(Section) {
+	this.addNewSectionToMetaData = function(schoolId,Section) {
 		var deferred = $q.defer();
 		var promise = deferred.promise;
 		var data = {newSection:Section};
@@ -59,12 +59,88 @@ app.service("adminService", function($http,$q) {
 		return promise;
 	};
 	
-	this.addNewSubjectToMetaData = function(Subject) {
+	this.addNewSubjectToMetaData = function(schoolId,Subject) {
 		var deferred = $q.defer();
 		var promise = deferred.promise;
 		var data = {newSubject:Subject};
 		var prop = {
 				url : protocol + "://" +hostname + ":" + port + "/" + project + "/" + mainRoute + "/addNewSubjectToMetaData/" + schoolId,
+				method : "POST",
+				data : data
+		};
+		$http(prop).then(function(response){
+			deferred.resolve(response);
+		});
+		return promise;
+	};
+	
+	this.addNewTestOrExamToMetaData = function(schoolId,testOrExam) {
+		var deferred = $q.defer();
+		var promise = deferred.promise;
+		var data = {newTestOrExam:testOrExam};
+		var prop = {
+				url : protocol + "://" +hostname + ":" + port + "/" + project + "/" + mainRoute + "/addNewTestOrExamToMetaData/" + schoolId,
+				method : "POST",
+				data : data
+		};
+		$http(prop).then(function(response){
+			deferred.resolve(response);
+		});
+		return promise;
+	};
+	
+	this.addNewGradeToMetaData = function(schoolId,grade) {
+		var deferred = $q.defer();
+		var promise = deferred.promise;
+		var data = {newGrade:grade};
+		var prop = {
+				url : protocol + "://" +hostname + ":" + port + "/" + project + "/" + mainRoute + "/addNewGradeToMetaData/" + schoolId,
+				method : "POST",
+				data : data
+		};
+		$http(prop).then(function(response){
+			deferred.resolve(response);
+		});
+		return promise;
+	};
+	
+	this.addNewGradeToMetaData = function(schoolId,passingGrade) {
+		var deferred = $q.defer();
+		var promise = deferred.promise;
+		var data = {passingGrade:passingGrade};
+		var prop = {
+				url : protocol + "://" +hostname + ":" + port + "/" + project + "/" + mainRoute + "/addNewGradeToMetaData/" + schoolId,
+				method : "POST",
+				data : data
+		};
+		$http(prop).then(function(response){
+			deferred.resolve(response);
+		});
+		return promise;
+	};
+	
+	this.getMarksData = function(schoolId,selectedYear,selectedClass,selectedSection,selectedTestOrExam) {
+		var deferred = $q.defer();
+		var promise = deferred.promise;
+		var prop = {
+				url : protocol + "://" +hostname + ":" + port + "/" + project + "/" + mainRoute + "/getMarksData/" + schoolId + "/" + selectedYear + "/" + selectedClass + "/" + selectedSection + "/" + selectedTestOrExam,
+				method : "GET"
+		}
+		$http(prop).then(function(response){
+			deferred.resolve(response);
+		});
+		return promise;
+	};
+	
+	this.saveMarks = function(schoolId,displayedMarksCriteria,marksData) {
+		var deferred = $q.defer();
+		var promise = deferred.promise;
+		var data = {
+				marksData : marksData,
+				displayedMarksCriteria : displayedMarksCriteria
+		};
+		var prop = {
+				url : protocol + "://" +hostname + ":" + port + "/" + project + "/" + mainRoute + "/saveMarksData/" + schoolId,
 				method : "POST",
 				data : data
 		};
