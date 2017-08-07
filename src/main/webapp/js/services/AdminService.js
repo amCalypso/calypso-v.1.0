@@ -132,7 +132,20 @@ app.service("adminService", function($http,$q) {
 		return promise;
 	};
 	
-	this.saveMarks = function(schoolId,displayedMarksCriteria,marksData) {
+	this.getAttendanceData = function(schoolId,selectedYear,selectedMonth,selectedClass,selectedSection,selectedSubject) {
+		var deferred = $q.defer();
+		var promise = deferred.promise;
+		var prop = {
+				url : protocol + "://" +hostname + ":" + port + "/" + project + "/" + mainRoute + "/getAttendanceData/" + schoolId + "/" + selectedYear + "/" + selectedMonth + "/" + selectedClass + "/" + selectedSection + "/" + selectedSubject,
+				method : "GET"
+		}
+		$http(prop).then(function(response){
+			deferred.resolve(response);
+		});
+		return promise;
+	};
+	
+	this.saveMarksData = function(schoolId,displayedMarksCriteria,marksData) {
 		var deferred = $q.defer();
 		var promise = deferred.promise;
 		var data = {
@@ -141,6 +154,24 @@ app.service("adminService", function($http,$q) {
 		};
 		var prop = {
 				url : protocol + "://" +hostname + ":" + port + "/" + project + "/" + mainRoute + "/saveMarksData/" + schoolId,
+				method : "POST",
+				data : data
+		};
+		$http(prop).then(function(response){
+			deferred.resolve(response);
+		});
+		return promise;
+	};
+	
+	this.saveattendanceData = function(schoolId,displayedAttendanceCriteria,attendanceData) {
+		var deferred = $q.defer();
+		var promise = deferred.promise;
+		var data = {
+				attendanceData : attendanceData,
+				displayedAttendanceCriteria : displayedAttendanceCriteria
+		};
+		var prop = {
+				url : protocol + "://" +hostname + ":" + port + "/" + project + "/" + mainRoute + "/saveAttendanceData/" + schoolId,
 				method : "POST",
 				data : data
 		};

@@ -1,7 +1,7 @@
 var app = angular.module('calypso');
 
 	 
-	app.controller('markSheetController', ['$scope', '$http','adminService', function ($scope, $http,adminService,uiGridConstants) {
+	app.controller('markSheetController', ['$scope', '$http','adminService','$routeParams', function ($scope, $http,adminService,$routeParams) {
 		
 		$scope.marksData = {};
 		$scope.gradeSystemFlag = false;
@@ -38,25 +38,6 @@ var app = angular.module('calypso');
 		
 	  $scope.addSubjectToColumn = function(subject,passingMarks,totalMarks) {
 		  if($scope.subjectDoesntExistInTableAlreadly(subject)) {
-			  
-			  /*//if there is empty column then only pop
-			  if(size > 0) {
-				  $scope.marksData.columnDefs.pop();
-			  }
-			  
-			  var obj = {};
-			  obj.name = subject;
-			  obj.displayName = subject;
-			  obj.width = "10%";
-			  $scope.marksData.columnDefs.push(obj);
-			  size = size - 10;
-			  // adding the empty column if still blank space is there
-			  if(size > 0) {
-				  var colObj = {};
-				  colObj.name = "Add Subject Below";
-				  colObj.width = size.toString() + "%";
-				  $scope.marksData.columnDefs.push(colObj);		  
-			  }*/
 			  
 			  $scope.marksData.columnDefs.pop();
 			  var obj = {};
@@ -137,12 +118,14 @@ var app = angular.module('calypso');
 		  }
 	  };
 	  
-	  $scope.displayedMarks = {};
+	  $scope.displayedMarksCriteria = {};
 	  
 	  $scope.getMarksData = function(selectedYear,selectedClass,selectedSection,selectedTestOrExam) {
 		  var promise = adminService.getMarksData($routeParams.schoolId,selectedYear,selectedClass,selectedSection,selectedTestOrExam);
 			promise.then(function(response) {
 				$scope.marksData = response.body.marksData;
+				$scope.marksData.enableCellEditOnFocus = true;
+				$scope.updateColumnWidths();
 				$scope.displayedMarksCriteria.selectedYear = selectedYear;
 				$scope.displayedMarksCriteria.selectedClass = selectedClass;
 				$scope.displayedMarksCriteria.selectedSection = selectedSection;
@@ -160,31 +143,41 @@ var app = angular.module('calypso');
 	  };
 		
 	  $scope.marksData = { enableCellEditOnFocus: true };
-	 
+      
+	  
+	  $scope.marksData.columnDefs = [{ name: 'No_Data', displayName: 'No Data', width: '100%'}];
+	  
+	  /*
 	  $scope.marksData.columnDefs = [
 	    { name: 'id', displayName: 'Roll no'},
 	    { name: 'name', displayName: 'Name'}
 	    
-	  ];
-	  var marksColSize = 90/$scope.marksData.columnDefs.length;
-	  var size = Math.floor(marksColSize);
-	  var remainingColSize = (90 - (Math.floor(marksColSize)*($scope.marksData.columnDefs.length)))
-	  var nameColSize = 10 + remainingColSize;
-	  for(var i = 0; i < $scope.marksData.columnDefs.length; i++) {
-		  if($scope.marksData.columnDefs[i].name == "name") {
-			  $scope.marksData.columnDefs[i].width = nameColSize.toString() + "%";
-		  } else {
-			  $scope.marksData.columnDefs[i].width = Math.floor(marksColSize).toString() + "%";
+	  ];*/
+	  
+	  
+	  $scope.updateColumnWidths = function() {
+		  var marksColSize = 90/$scope.marksData.columnDefs.length;
+		  var size = Math.floor(marksColSize);
+		  var remainingColSize = (90 - (Math.floor(marksColSize)*($scope.marksData.columnDefs.length)))
+		  var nameColSize = 10 + remainingColSize;
+		  for(var i = 0; i < $scope.marksData.columnDefs.length; i++) {
+			  if($scope.marksData.columnDefs[i].name == "name") {
+				  $scope.marksData.columnDefs[i].width = nameColSize.toString() + "%";
+			  } else {
+				  $scope.marksData.columnDefs[i].width = Math.floor(marksColSize).toString() + "%";
+			  }
 		  }
+		  var obj = {};
+		  obj.name = "result";
+		  obj.displayName = "Result";
+		  obj.width = size + "%";
+		  $scope.marksData.columnDefs.push(obj);
 	  }
-	  var obj = {};
-	  obj.name = "result";
-	  obj.displayName = "Result";
-	  obj.width = size + "%";
-	  $scope.marksData.columnDefs.push(obj);
 	  
 	  
-	  $scope.marksData.data = [{id:'1',name:'yatish'}];
+	  //$scope.marksData.data = [{id:'1',name:'yatish'}];
+	  
+	  $scope.marksData.data = [];
 	  
 	  $scope.markAllPass = function() {
 		  for(var i = 0; i < $scope.marksData.data.length; i++) {
@@ -192,27 +185,19 @@ var app = angular.module('calypso');
 				  $scope.marksData.data[i].result = "PASS";
 			  }
 		  }
-	  }
-	  $scope.markAllPass();
+	  };
+	  //$scope.markAllPass();
 	  
 	  
-	  /*
-	  var size = 0;
-	  for(var i = 0; i < $scope.marksData.columnDefs.length; i++) {
-		  size = size + parseInt($scope.marksData.columnDefs[i].width);
-	  }
-	  size = 100 - size;
-	  if(size > 0) {
-		  var colObj = {};
-		  colObj.name = "Add Subject Below";
-		  colObj.width = size.toString() + "%";
-		  $scope.marksData.columnDefs.push(colObj);
-	  }
-	  */
+	  //adding empty rows to make sure, that there will  be no empty space after data rows
 	  for(var i = 0; i < 18; i++) {
 		  var obj = {};
-		  obj.name = "";
-		  obj.displayName = "";
+		  if(i == 8) {
+			  obj.No_Data = "Please Select the Year,  Class,  Section,  Test/Exam  in  dropdowns  present  above  the  table  and click  on  'Get Marks Sheet'  Button";
+		  }
+		  if(i == 10) {
+			  obj.No_Data = "NOTE :   Once  you  click  on the  'Get Marks Sheet'  Button,  you   can  add  subjects  using  the  options  below";
+		  }
 		  $scope.marksData.data.push(obj);
 	  }
 	  
@@ -251,5 +236,5 @@ var app = angular.module('calypso');
 	       return genderHash[input];
 	     }
 	   };
-	 })
-	 ;
+	 });
+	

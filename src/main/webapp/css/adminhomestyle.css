@@ -630,6 +630,16 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		background-size: cover;
 		height: 100%;
 	}
+	
+/* Attendence */
+#attendance {
+	background: url(../images/HomePageBackground.jpg) fixed;
+		padding: 10px 0 10px;
+		background-size: cover;
+		height: 100%;
+}
+
+
 
 /* About */
    @media (min-width:600px) and (max-width:1020px){
