@@ -65,49 +65,6 @@ app.controller('attendanceController', ['$scope', '$http','adminService','$route
 		});
 	};
 	
-  $scope.addSubjectToColumn = function(subject,passingMarks,totalMarks) {
-	  if($scope.subjectDoesntExistInTableAlreadly(subject)) {
-
-		  $scope.attendanceData.columnDefs.pop();
-		  var obj = {};
-		  obj.name = subject;
-		  obj.displayName = subject;
-		  obj.marksBased = !$scope.gradeSystemFlag;
-		  if($scope.gradeSystemFlag == false) {
-			  obj.passingMarks = passingMarks;
-			  obj.totalMarks = totalMarks;
-		  } else {
-			  obj.editDropdownValueLabel = subject;
-			  obj.editableCellTemplate = "ui-grid/dropdownEditor";
-			  obj.editDropdownOptionsArray = [];
-			  for(var i = 0; i < $scope.metaDataGrades.length; i++) {
-				  var insideObj = {};
-				  insideObj.id = $scope.metaDataGrades[i];
-				  insideObj[subject] = $scope.metaDataGrades[i];
-				  obj.editDropdownOptionsArray.push(insideObj);
-			  }
-			  
-		  }  
-		  $scope.attendanceData.columnDefs.push(obj);
-		  marksColSize = 90/$scope.attendanceData.columnDefs.length;
-		  size = Math.floor(marksColSize);
-		  remainingColSize = (90 - (Math.floor(marksColSize)*($scope.attendanceData.columnDefs.length)))
-		  nameColSize = 10 + remainingColSize;
-		  for(var i = 0; i < $scope.attendanceData.columnDefs.length; i++) {
-			  if($scope.attendanceData.columnDefs[i].name == "name") {
-				  $scope.attendanceData.columnDefs[i].width = nameColSize.toString() + "%";
-			  } else {
-				  $scope.attendanceData.columnDefs[i].width = Math.floor(marksColSize).toString() + "%";
-			  }
-		  }
-		  var obj = {};
-		  obj.name = "result";
-		  obj.displayName = "Result";
-		  obj.width = size + "%";
-		  $scope.attendanceData.columnDefs.push(obj);
-		  
-  	}
-  };
   
   $scope.saveAttendance = function(attendanceData) {
 	  var promise = adminService.saveattendanceData($routeParams.schoolId,$scope.displayedAttendanceCriteria,attendanceData);

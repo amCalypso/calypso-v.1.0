@@ -2,11 +2,11 @@ var app = angular.module('calypso');
 
 app.service("adminService", function($http,$q) {
 	
-	this.saveStudentObject = function(student) {
+	this.saveStudentObject = function(student,schoolId) {
 		var deferred = $q.defer();
 		var promise = deferred.promise;
 		var prop = {
-				url : protocol + "://" +hostname + ":" + port + "/" + project + "/" + mainRoute + "/newStudent",
+				url : protocol + "://" +hostname + ":" + port + "/" + project + "/" + mainRoute + "/newStudent/" + schoolId,
 				method : "POST",
 				data : student
 		};
@@ -145,6 +145,19 @@ app.service("adminService", function($http,$q) {
 		return promise;
 	};
 	
+	this.gettimeTableData = function(schoolId,selectedYear,selectedClass,selectedSection) {
+		var deferred = $q.defer();
+		var promise = deferred.promise;
+		var prop = {
+				url : protocol + "://" +hostname + ":" + port + "/" + project + "/" + mainRoute + "/getTimeTableData/" + schoolId + "/" + selectedYear + "/" + selectedClass + "/" + selectedSection,
+				method : "GET"
+		}
+		$http(prop).then(function(response){
+			deferred.resolve(response);
+		});
+		return promise;
+	};
+	
 	this.saveMarksData = function(schoolId,displayedMarksCriteria,marksData) {
 		var deferred = $q.defer();
 		var promise = deferred.promise;
@@ -180,5 +193,64 @@ app.service("adminService", function($http,$q) {
 		});
 		return promise;
 	};
+	
+	this.savetimeTableData = function(schoolId,displayedTimeTableCriteria,timeTableData) {
+		var deferred = $q.defer();
+		var promise = deferred.promise;
+		var data = {
+				timeTableData : timeTableData,
+				displayedTimeTableCriteria : displayedTimeTableCriteria
+		};
+		var prop = {
+				url : protocol + "://" +hostname + ":" + port + "/" + project + "/" + mainRoute + "/saveTimeTableData/" + schoolId,
+				method : "POST",
+				data : data
+		};
+		$http(prop).then(function(response){
+			deferred.resolve(response);
+		});
+		return promise;
+	};
+	
+	this.getStudentList = function(schoolId,selectedYear,selectedClass,selectedSection) {
+		var deferred = $q.defer();
+		var promise = deferred.promise;
+		var prop = {
+				url : protocol + "://" +hostname + ":" + port + "/" + project + "/" + mainRoute + "/getStudentList/" + schoolId + "/" + selectedYear + "/" + selectedClass + "/" + selectedSection,
+				method : "GET"
+		};
+		$http(prop).then(function(response){
+			deferred.resolve(response);
+		});
+		return promise;
+	};
+	
+	this.sendMessage = function(schoolId,selectedYear,selectedClass,selectedSection,selectedStudent,AllInSchool,AllInClass,AllInSection,SingleStudent,From,Title,Body) {
+		var deferred = $q.defer();
+		var promise = deferred.promise;
+		var data = {
+				selectedYear : selectedYear,
+				selectedClass : selectedClass,
+				selectedSection : selectedSection,
+				selectedStudent : selectedStudent,
+				AllInSchool : AllInSchool,
+				AllInClass : AllInClass,
+				AllInSection : AllInSection,
+				SingleStudent : SingleStudent,
+				From : From,
+				Title : Title,
+				Body : Body
+		};
+		var prop = {
+				url : protocol + "://" +hostname + ":" + port + "/" + project + "/" + mainRoute + "/sendMessage/" + schoolId,
+				method : "POST",
+				data : data
+		};
+		$http(prop).then(function(response){
+			deferred.resolve(response);
+		});
+		return promise;
+	}
+	
 	
 });

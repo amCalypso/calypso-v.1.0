@@ -13,6 +13,10 @@ app.config(function($routeProvider) {
 		templateUrl : "adminUiIndex.html",
 		controller : "login"
 	})
+	.when("/:schoolId/student",{
+		templateUrl : "studentUiIndex.html",
+		controller : "login"
+	})
 });
 
 //window.onwheel = function(){ return false; }

@@ -45,11 +45,12 @@
 				<ul class="nav uppercase">
 					<li><a href="#metaData" class="scroll">Meta Data</a></li>       
 					<li><a href="#newAdmission" class="scroll">New Admission</a></li>
+					<li><a href="#existingAdmission" class="scroll">Existing Admission</a></li>
 					<li><a href="#attendance" class="scroll">Attendance</a></li>     
 					<li><a href="#markSheet" class="scroll">Marks</a></li>
-					<li><a href="#testimonial" class="scroll">Testimonial</a></li>
-					<li><a href="#contact" class="scroll">Contact</a></li>
-					<li><a href="#clients" class="scroll">Gymnasts</a></li>
+					<li><a href="#timeTable" class="scroll">Time Table</a></li>
+					<li><a href="#message" class="scroll">Message</a></li>
+					<!-- <li><a href="#clients" class="scroll">Gymnasts</a></li>-->
 					<li><a href="#testimonial" class="scroll">Testimonial</a></li>
 					<li><a href="#contact" class="scroll">Contact</a></li>
 				</ul>
@@ -272,6 +273,10 @@
 			            <label class="sr-only">Email ID</label>
 			            <input ng-model="student.emailID" type="text" style="font-weight:500; height:4.95vh" placeholder="Email ID" class="form-username form-control">
 			        </div>
+			        <div class="form-group" style="opacity:0.6; font-weight:500;">
+			            <label class="sr-only">Date of Joining (DD/MM/YYYY)</label>
+			            <input ng-model="student.dateOfJoining" type="text" style="font-weight:500; height:4.95vh" placeholder="Date of Joining (DD/MM/YYYY)" class="form-username form-control">
+			        </div>
 			        
 			        
 			                    
@@ -282,10 +287,7 @@
 						<!-- Message -->
 						<!-- <textarea name="message" id="message" class="form textarea"  placeholder="Message"></textarea> -->
 						<!-- Name -->
-					<div class="form-group" style="opacity:0.6; font-weight:500;">
-			            <label class="sr-only">Date of Joining (DD/MM/YYYY)</label>
-			            <input ng-model="student.dateOfJoining" type="text" style="font-weight:500; height:4.95vh" placeholder="Date of Joining (DD/MM/YYYY)" class="form-username form-control">
-			        </div>
+					
 			        <div class="form-group" style="opacity:0.6; font-weight:500;">
 			            <label class="sr-only">Blood Group</label>
 			            <input ng-model="student.bloodGroup" type="text" style="font-weight:500; height:4.95vh" placeholder="Blood Group" class="form-username form-control">
@@ -305,8 +307,173 @@
 			            <select ng-model="student.section" ng-options="eachSection.id as eachSection.label for eachSection in sections" style="color:black; opacity:0.6;width:100%;"></select>
 			        </div>
 			       
-						<textarea ng-model="student.address" name="address" id="address" class="form textarea"  style="height: 12.2vh; opacity:0.6" placeholder="Address"></textarea>
-						<textarea ng-model="student.knownHealthIssues" name="address" id="address" class="form textarea"  style="height: 12.2vh;opacity:0.6;" placeholder="Any Known Health Issues"></textarea>
+						<textarea ng-model="student.address" name="address" id="address" class="form textarea"  style="height: 10.2vh; opacity:0.6" placeholder="Address"></textarea>
+						<textarea ng-model="student.knownHealthIssues" name="address" id="address" class="form textarea"  style="height: 10.2vh;opacity:0.6;" placeholder="Any Known Health Issues"></textarea>
+					
+					
+					
+					 <div class="form-group" style="font-weight:500; text-align:left; color:white">
+						 	 <label class="sr-only"></label>
+			            		Photo :
+						    <img ng-src="{{student.photo}}" />
+						    <input type="file" ng-file-select="onFileSelect($files)" ng-model="student.photo" style="float:right; padding-top:7vh; padding-right:5vh">
+						      <!--  <input type="file" ng-file-select="onFileSelect($files)" multiple> -->
+						      
+					</div>
+					
+
+					
+					</div><!-- End Right Inputs -->
+					<!-- Bottom Submit -->
+					<div class="relative fullwidth col-xs-12">
+						<!-- Send Button -->
+						<button id="Save" name="Save" class="form-btn semibold" ng-click="saveStudentObject(student)">Save</button> 
+					</div><!-- End Bottom Submit -->
+					<!-- Clear -->
+					<div class="clear"></div>
+				</form>
+				</div>
+
+	</section><!-- End About Section -->
+	
+	
+	<!-- About -->
+	<section id="existingAdmission" style="height:100vh" class="container waypoint" ng-controller="adminNewRegistration">
+	
+	<div style="    width: 100%;
+    height: auto;
+    max-width: 1170px;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;">
+	
+	          <div class="form-group" style="font-weight:500; text-align:center; color:white;">
+			            <label class="sr-only"></label>
+			            Year :
+			            <select ng-model="selectedYear" ng-options="years for years in years" style="color:black; opacity:1;width:10%;"></select>
+			        	&nbsp;&nbsp;&nbsp; 
+			        <span>
+			            <label class="sr-only"></label>
+			            Class :
+			            <select ng-model="selectedClass" ng-click="populateMetaData()" ng-options="metaDataClasses for metaDataClasses in metaDataClasses" style="color:black; opacity:1;width:10%;"></select>
+			        	&nbsp;&nbsp;&nbsp; 
+			        </span>
+			        
+			        <span>
+			            <label class="sr-only"></label>
+			            Section :
+			            <select ng-model="selectedSection" ng-click="populateMetaData()" ng-options="metaDataSections for metaDataSections in metaDataSections" style="color:black; opacity:1;width:10%;"></select>
+			        	&nbsp;&nbsp;&nbsp;
+			        	</span>
+			        	
+			        	<span>
+			        	<label class="sr-only"></label>
+			            Student :
+			            <select ng-model="selectedStudent" ng-click="getStudentList(selectedYear,selectedClass,selectedSection)" ng-options="student for student in students" style="color:black; opacity:1;width:10%;"></select>
+			        	&nbsp;&nbsp;&nbsp;
+			        	</span>
+			        	
+			        	&nbsp;&nbsp;&nbsp;<button class="btn" ng-click="getTimeTable(selectedYear,selectedClass,selectedSection)" style="height:32px; line-height: 0px">Get Time Table</button>
+		</div>
+                <!-- <p class="h-desc white">lorem Ipsum is lorem Ipsum of passages of Lorem Ipsum available, but the majority have suffered alteration.<br />
+                Email us or give us a call at <span class="bold colored">+1 (800) 245-123.</span></p> -->
+	<!-- Form -->
+				<form id="contact-us" method="post" action="#">
+					<!-- Left Inputs -->
+					<div class="col-xs-6 animated" data-animation="fadeInLeft" data-animation-delay="300">
+					
+					<div class="form-group" style="opacity:0.6">
+			            <label class="sr-only">First Name</label>
+			            <input ng-model="student.firstName" type="text" style="font-weight:500; height:4.95vh" placeholder="First Name" class="form-username form-control">
+			        </div>
+			        <div class="form-group" style="opacity:0.6">
+			            <label class="sr-only">Middle Name</label>
+			            <input ng-model="student.middleName" type="text" style="font-weight:500; height:4.95vh" placeholder="Middle Name." class="form-username form-control">
+			        </div>
+			        <div class="form-group" style="opacity:0.6; font-weight:500;">
+			            <label class="sr-only">Last Name</label>
+			            <input ng-model="student.lastName" type="text" style="font-weight:500; height:4.95vh" placeholder="Last Name..." class="form-username form-control">
+			        </div>
+			        <div class="form-group" style="opacity:0.6; font-weight:500;">
+			            <label class="sr-only">Date of Birth (DD/MM/YYYY)</label>
+			            <input ng-model="student.dateOfBirth" type="text" style="font-weight:500; height:4.95vh" name="form-username" placeholder="Date of Birth (DD/MM/YYYY)" class="form-username form-control">
+			        </div>
+			        <div class="form-group" style="font-weight:500; color:white; text-align:left">
+			            Male :
+			            <input  style="opacity:0.6;" ng-model="student.male" type="checkbox" ng-click="maleClicked(student.male)">
+			            Female : 
+			            <input  style="opacity:0.6;" ng-model="student.female" type="checkbox" ng-click="femaleClicked(student.female)">
+			        </div>
+			        <div class="form-group" style="opacity:0.6; font-weight:500;">
+			            <label class="sr-only">Father's Name</label>
+			            <input ng-model="student.fatherName" type="text" style="font-weight:500; height:4.95vh" placeholder="Father's Name" class="form-username form-control">
+			        </div>
+			        <div class="form-group" style="opacity:0.6; font-weight:500;">
+			            <label class="sr-only">Mother's Name</label>
+			            <input ng-model="student.motherName" type="text" style="font-weight:500; height:4.95vh" placeholder="Mother's Name" class="form-username form-control">
+			        </div>
+			        <div class="form-group" style="opacity:0.6; font-weight:500;">
+			            <label class="sr-only">Phone Number</label>
+			            <input ng-model="student.phoneNumber" type="text" style="font-weight:500; height:4.95vh" placeholder="Phone Number" class="form-username form-control">
+			        </div>
+			        <div class="form-group" style="opacity:0.6; font-weight:500;">
+			            <label class="sr-only">Alternate Phone Number</label>
+			            <input ng-model="student.alternatePhoneNumber" type="text" style="font-weight:500; height:4.95vh" placeholder="Alternate Phone Number" class="form-username form-control">
+			        </div>
+			        <div class="form-group" style="opacity:0.6; font-weight:500;">
+			            <label class="sr-only">Email ID</label>
+			            <input ng-model="student.emailID" type="text" style="font-weight:500; height:4.95vh" placeholder="Email ID" class="form-username form-control">
+			        </div>
+			        <div class="form-group" style="opacity:0.6; font-weight:500;">
+			            <label class="sr-only">Date of Joining (DD/MM/YYYY)</label>
+			            <input ng-model="student.dateOfJoining" type="text" style="font-weight:500; height:4.95vh" placeholder="Date of Joining (DD/MM/YYYY)" class="form-username form-control">
+			        </div>
+			        
+			        
+			                    
+						
+					</div><!-- End Left Inputs -->
+					<!-- Right Inputs -->
+					<div class="col-xs-6 animated" data-animation="fadeInRight" data-animation-delay="400">
+						<!-- Message -->
+						<!-- <textarea name="message" id="message" class="form textarea"  placeholder="Message"></textarea> -->
+						<!-- Name -->
+					
+			        <div class="form-group" style="opacity:0.6; font-weight:500;">
+			            <label class="sr-only">Blood Group</label>
+			            <input ng-model="student.bloodGroup" type="text" style="font-weight:500; height:4.95vh" placeholder="Blood Group" class="form-username form-control">
+			        </div>
+			         <div class="form-group" style="opacity:0.6; font-weight:500;">
+			            <label class="sr-only">Roll Number</label>
+			            <input ng-model="student.rollNumber" type="text" style="font-weight:500; height:4.95vh" placeholder="Roll Number (Student ID)" class="form-username form-control">
+			        </div>
+			        <div class="form-group" style="font-weight:500; text-align:left; color:white">
+			            <label class="sr-only"></label>
+			            Class :
+			            <select ng-model="student.class" ng-options="eachClass.id as eachClass.label for eachClass in classes" style="color:black; opacity:0.6;width:100%;"></select>
+			        </div>
+			        <div class="form-group" style="font-weight:500; text-align:left; color:white">
+			            <label class="sr-only"></label>
+			            Section :
+			            <select ng-model="student.section" ng-options="eachSection.id as eachSection.label for eachSection in sections" style="color:black; opacity:0.6;width:100%;"></select>
+			        </div>
+			       
+						<textarea ng-model="student.address" name="address" id="address" class="form textarea"  style="height: 10.2vh; opacity:0.6" placeholder="Address"></textarea>
+						<textarea ng-model="student.knownHealthIssues" name="address" id="address" class="form textarea"  style="height: 10.2vh;opacity:0.6;" placeholder="Any Known Health Issues"></textarea>
+					
+					
+					
+					 <div class="form-group" style="font-weight:500; text-align:left; color:white">
+						 	 <label class="sr-only"></label>
+			            		Photo :
+						    <img ng-src="{{student.photo}}" />
+						    <input type="file" ng-file-select="onFileSelect($files)" ng-model="student.photo" style="float:right; padding-top:7vh; padding-right:5vh">
+						      <!--  <input type="file" ng-file-select="onFileSelect($files)" multiple> -->
+						      
+					</div>
+					
+
+					
 					</div><!-- End Right Inputs -->
 					<!-- Bottom Submit -->
 					<div class="relative fullwidth col-xs-12">
@@ -456,165 +623,136 @@
 	
     
 	<!-- Testimonials -->
-	<section id="testimonial" class="testimonials parallax2">
+	<section id="timeTable" style="height:100vh">
 
-		<div class="inner">
-
-			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-			  <!-- Indicators -->
-			  <ol class="carousel-indicators">
-			    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-			    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-			    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-			  </ol>
-
-			  <!-- Wrapper for slides -->
-			  <div class="carousel-inner">
-			    <div class="item active">
-			    	<ul>
-				     <li class="monial">
-						<!-- Text -->
-						<h1 class="condensed white">"<span class="colored">Lorem ipsum dolor</span> sit amet, consectetur adipiscing elit. Cras euismod vestibulum orci, mollis vulpute felis dapibus sed. Nam ullamcorper congue elit."</h1>
-						<!-- Name -->
-						<p class="light">John Doe</p>
-					</li>
-					</ul>
-			    </div>
-			    <div class="item">
-			      <ul>
-			      <li class="monial">
-						<!-- Text -->
-						<h1 class="condensed white"><span class="colored">Lorem ipsum dolor</span> sit amet, consectetur adipiscing elit. Cras euismod vestibulum orci, mollis vulputate felis dapibus sed. Nam ullamcorper congue elit."</h1>
-						<!-- Name -->
-						<p class="light">Jane Doe</p>
-					</li>
-				</ul>	
-			    </div>
-			    <div class="item">
-			    <ul>
-			      <li class="monial">
-						<!-- Text -->
-						<h1 class="condensed white">"<span class="colored">Lorem ipsum dolor</span> sit amet, consectetur adipiscing elit. Cras euismod vestibulum orci, mollis vulputate felis dapibus sed. Nam ullamcorper congue elit."</h1>
-						<!-- Name -->
-						<p class="light">Severe Dane</p>
-					</li>
-				</ul>	
-			    </div>
-			  </div>
-
-			 
-			</div>  
-
-					</div><!-- End Inner Div -->
-
-	</section><!-- End Testimonials Section -->
-
-	<!-- Blockquote -->
-	<section id="blockquote">
-
-		<div class="inner no-padding">
-			<!-- Your Text -->
-			<p class="normal white blockquote fancy">This is our Client's motivation, we work with Passion! 
-			<a href="#about" class="scroll"><i class="fa fa-arrow-right"></i></a></p>
-		</div>
-
-	</section><!-- End Blockquote Section -->
+		
+	<div >
     
-	<!-- Contact Section -->
-	<section id="contact" class="container">
-		<!-- Contact Inner -->
-		<div class="inner contact">
-
-			<!-- Form Area -->
-			<div class="contact-form">
-            
-            	<h4 class="header light  fancy"><span class="colored">Contact Us </span></h4>
-                <p class="h-desc white">lorem Ipsum is lorem Ipsum of passages of Lorem Ipsum available, but the majority have suffered alteration.<br />
-                Email us or give us a call at <span class="bold colored">+1 (800) 245-123.</span></p>
-				<!-- Form -->
-				<form id="contact-us" method="post" action="#">
-					<!-- Left Inputs -->
-					<div class="col-xs-6 animated" data-animation="fadeInLeft" data-animation-delay="300">
-						<!-- Name -->
-						<input type="text" name="name" id="name" required="required" class="form" placeholder="Name" />
-						<!-- Email -->
-						<input type="email" name="mail" id="mail" required="required" class="form" placeholder="Email" />
-						<!-- Subject -->
-						<input type="text" name="subject" id="subject" required="required" class="form" placeholder="Subject" />
-					</div><!-- End Left Inputs -->
-					<!-- Right Inputs -->
-					<div class="col-xs-6 animated" data-animation="fadeInRight" data-animation-delay="400">
-						<!-- Message -->
-						<textarea name="message" id="message" class="form textarea"  placeholder="Message"></textarea>
-					</div><!-- End Right Inputs -->
-					<!-- Bottom Submit -->
-					<div class="relative fullwidth col-xs-12">
-						<!-- Send Button -->
-						<button type="submit" id="submit" name="submit" class="form-btn semibold">Send Message</button> 
-					</div><!-- End Bottom Submit -->
-					<!-- Clear -->
-					<div class="clear"></div>
-				</form>
-
-				<!-- Your Mail Message -->
-				<div class="mail-message-area">
-					<!-- Message -->
-					<div class="alert gray-bg mail-message not-visible-message">
-						<strong>Thank You !</strong> Your email has been delivered.
-					</div>
-				</div>
-
-			</div><!-- End Contact Form Area -->
-		</div><!-- End Inner -->
-	</section><!-- End Contact Section -->
+		<div style="    width: 100%;
+    height: 100%;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;" ng-controller="timeTableController">
+				
+			            
+			            
+			            <div class="form-group" style="font-weight:500; text-align:center; color:white;">
+			            <label class="sr-only"></label>
+			            Year :
+			            <select ng-model="selectedYear" ng-click="populateMetaData()" ng-options="years for years in years" style="color:black; opacity:1;width:10%;"></select>
+			        	&nbsp;&nbsp;&nbsp; 
+			        
+			            <label class="sr-only"></label>
+			            Class :
+			            <select ng-model="selectedClass" ng-click="populateMetaData()" ng-options="metaDataClasses for metaDataClasses in metaDataClasses" style="color:black; opacity:1;width:10%;"></select>
+			        	&nbsp;&nbsp;&nbsp; 
+			        
+			            <label class="sr-only"></label>
+			            Section :
+			            <select ng-model="selectedSection" ng-click="populateMetaData()" ng-options="metaDataSections for metaDataSections in metaDataSections" style="color:black; opacity:1;width:10%;"></select>
+			        	&nbsp;&nbsp;&nbsp; 
+			        	
+			        	
+			        	&nbsp;&nbsp;&nbsp;<button class="btn" ng-click="getTimeTable(selectedYear,selectedClass,selectedSection)" style="height:32px; line-height: 0px">Get Time Table</button>
+			        	
+						
+			        </div>
+			  		        
+					<div ui-grid="timeTableData" ui-grid-edit ui-grid-cellNav ui-grid-resize-columns class="grid" style="height:70vh; max-width:100%;overflow-x:hidden; background-color:white;"></div>
+	
+	
+						
+						<div class="form-group" style="font-weight:500; text-align:center; color:white; padding-top: 20px;">
+						
+			        	<button class="btn" ng-click="saveTimeTable(timeTableData)" style="height:32px; line-height: 0px; float: right; padding:0 60px; margin-right: 2vh; color">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;
+			        </div>
+			        
+			        
+	</div>
+		</div>
+					
 
 
+	</section><!-- End Team Section -->  
 
-	<!-- Site Socials and Address -->
-	<section id="site-socials" class="no-padding white-bg">
-		<div class="site-socials inner no-padding">
-			<!-- Socials -->
-			<div class="socials animated" data-animation="fadeInLeft" data-animation-delay="400">
-				<!-- Facebook -->
-				<a href="#" target="_blank" class="social">
-					<i class="fa fa-facebook"></i>
-				</a>
-				<!-- Twitter -->
-				<a href="#" target="_blank" class="social">
-					<i class="fa fa-twitter"></i>
-				</a>
-				<!-- Instagram -->
-				<a href="#" class="social">
-					<i class="fa fa-instagram"></i>
-				</a>
-				<!-- Linkedin -->
-				<a href="#" target="_blank" class="social">
-					<i class="fa fa-linkedin"></i>
-				</a>
-				<!-- Vimeo -->
-				<a href="#" target="_blank" class="social">
-					<i class="fa fa-vimeo-square"></i>
-				</a>
-				<!-- Youtube -->
-				<a href="#" target="_blank" class="social">
-					<i class="fa fa-youtube"></i>
-				</a>               
-				<!-- Google Plus -->
-				<a href="#" target="_blank" class="social">
-					<i class="fa fa-google-plus"></i>
-				</a>                
-			</div>
-			<!-- Adress, Mail -->
-			<div class="address socials animated" data-animation="fadeInRight" data-animation-delay="500">
-				<!-- Phone Number, Mail -->
-				<p>Phone: +1 (800) 245-1234 Email : <a href="mailto:info@Fitness.com" class="colored">info@Fitness.com</a> Address: 23 Renesa, Surma Beach, Newyork</p>
-				<!-- Top Button -->
-				<a href="#metaData" class="scroll top-button">
-					<i class="fa fa-arrow-circle-up fa-2x"></i>
-				</a>
-			</div><!-- End Adress, Mail -->
-		</div><!-- End Inner -->
-	</section><!-- End Site Socials and Address -->
+	
+	<!-- Testimonials -->
+	<section id="message" class="container" style="height:100vh">
+
+		
+	<div >
+    
+		<div style="    width: 100%;
+    height: 100%;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;" ng-controller="adminMessageController">
+				
+			            <span style="color: white; font-weight: bold">
+			            Send Message to   &nbsp;&nbsp;&nbsp; </span>
+			            <div class="form-group" style="font-weight:500; color:white; text-align:center">
+			            All Students in school :
+			            <input  style="opacity:0.6;" ng-model="AllInSchool" type="checkbox" ng-click="AllInSchoolClicked()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			            All Students in Class  : 
+			            <input  style="opacity:0.6;" ng-model="AllInClass" type="checkbox" ng-click="AllInClassClicked()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			            All Students in Section  : 
+			            <input  style="opacity:0.6;" ng-model="AllInSection" type="checkbox" ng-click="AllInSectionClicked()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			            Single Student  : 
+			            <input  style="opacity:0.6;" ng-model="SingleStudent" type="checkbox" ng-click="SingleStudentClicked()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			        	</div>
+			            
+			            <div class="form-group" style="font-weight:500; text-align:center; color:white;">
+			            <label class="sr-only"></label>
+			            Year :
+			            <select ng-model="selectedYear" ng-options="years for years in years" style="color:black; opacity:1;width:10%;"></select>
+			        	&nbsp;&nbsp;&nbsp; 
+			        <span ng-show="AllInClass || SingleStudent || AllInSection">
+			            <label class="sr-only"></label>
+			            Class :
+			            <select ng-model="selectedClass" ng-click="populateMetaData()" ng-options="metaDataClasses for metaDataClasses in metaDataClasses" style="color:black; opacity:1;width:10%;"></select>
+			        	&nbsp;&nbsp;&nbsp; 
+			        </span>
+			        
+			        <span ng-show="AllInSection || SingleStudent">
+			            <label class="sr-only"></label>
+			            Section :
+			            <select ng-model="selectedSection" ng-click="populateMetaData()" ng-options="metaDataSections for metaDataSections in metaDataSections" style="color:black; opacity:1;width:10%;"></select>
+			        	&nbsp;&nbsp;&nbsp;
+			        	</span>
+			        	
+			        	<span ng-show="SingleStudent">
+			        	<label class="sr-only"></label>
+			            Student :
+			            <select ng-model="selectedStudent" ng-click="getStudentList(selectedYear,selectedClass,selectedSection)" ng-options="student for student in students" style="color:black; opacity:1;width:10%;"></select>
+			        	&nbsp;&nbsp;&nbsp;
+			        	</span>
+			        	
+			        	
+			        	<hr/>
+			        	<br/><br/>
+			        	<textarea ng-model="Message.from" style="width:80vh; height:5vh; color: black;" placeholder="From"></textarea>
+			        	<br/><br/>
+			        	<textarea ng-model="Message.title" style="width:80vh; height:5vh; color: black;" placeholder="Title/Subject"></textarea>
+			        	<br/><br/>
+			        <textarea ng-model="Message.body" style="width:80vh; height:40vh; color: black;" placeholder="Message..."></textarea>
+			        	
+						
+			        </div>
+						
+						<div class="form-group" style="font-weight:500; text-align:center; color:white; padding-top: 20px;">
+						
+			        	<button class="btn" ng-click="sendMessage(Message)" style="height:32px; line-height: 0px; padding:0 60px; margin-right: 2vh; color">Send Message</button>&nbsp;&nbsp;&nbsp;&nbsp;
+			        </div>
+			        
+			        
+	</div>
+		</div>
+					
+
+
+	</section><!-- End Team Section -->  
+    
+
 
 
 
